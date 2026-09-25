@@ -32,12 +32,6 @@ pipeline {
         }
 
         stage('Terraform Apply') {
-            when {
-                allOf {
-                    changeset "terraform/**"
-                    branch 'master'
-                }
-            }
             steps {
                 // manual gate before touching real infra - remove input{} once you trust the pipeline
                 input message: 'Apply Terraform changes to AWS?'
