@@ -24,6 +24,8 @@ module "security_groups" {
 
 module "alb" {
   source              = "./modules/load_balancer"
+  log_bucket_name       = module.s3.bucket_id
+  depends_on          = [module.s3]
   vpc_id              = module.vpc.vpc_id
   public_subnets      = module.vpc.public_subnets
   alb_sg_id           = module.security_groups.alb_sg_id
@@ -35,7 +37,10 @@ module "rds" {
   private_subnets = module.vpc.private_subnets
   db_sg_id        = module.security_groups.db_sg_id
   db_username     = var.db_username
-  db_password     = var.db_password
+}
+
+module "s3" {
+  source          = "./modules/s3_bucket"
 }
 
 
@@ -48,9 +53,10 @@ module "ecs" {
   frontend_ecr_url = var.frontend_ecr_url
   backend_ecr_url  = var.backend_ecr_url
 
-  db_endpoint               = module.rds.db_endpoint
-  db_username               = module.rds.db_username
-  db_password               = module.rds.db_password
+  db_endpoint   = module.rds.db_endpoint
+  db_username   = module.rds.db_username
+  db_secret_arn = module.rds.db_secret_arn
+
   cloudwatch_log_group_name = module.cloudwatch.log_group_name
   depends_on = [
     module.alb,

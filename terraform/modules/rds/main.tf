@@ -17,8 +17,7 @@ resource "aws_db_instance" "mysql" {
 
   db_name  = "polls"
   username = var.db_username
-  password = var.db_password
-
+  manage_master_user_password = true
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_grp.name
   vpc_security_group_ids = [var.db_sg_id]
 

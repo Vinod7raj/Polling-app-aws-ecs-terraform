@@ -33,12 +33,6 @@ variable "db_username" {
   description = "Database username"
 }
 
-variable "db_password" {
-  type        = string
-  description = "Database password"
-  sensitive   = true
-}
-
 variable "log_group_name" {
   type        = string
   default     = "/ecs/polling-app"

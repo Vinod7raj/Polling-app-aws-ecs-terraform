@@ -16,6 +16,23 @@ resource "aws_iam_role_policy_attachment" "ecs_execution_attach" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_role_policy" "ecs_secret_access" {
+
+  name = "polling-ecs-secret-access"
+  role = aws_iam_role.ecs_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "secretsmanager:GetSecretValue"
+      ]
+      Resource = var.db_secret_arn
+    }]
+  })
+}
+
 resource "aws_ecs_cluster" "main_cluster" {
   name = "polling-ecs-cluster"
 }
@@ -45,11 +62,25 @@ resource "aws_ecs_task_definition" "backend_task" {
           name  = "SPRING_DATASOURCE_USERNAME"
           value = var.db_username
         },
-        {
-          name  = "SPRING_DATASOURCE_PASSWORD"
-          value = var.db_password
-        }
+
+  {
+    name  = "APP_CORS_ALLOWEDORIGINS"
+    value = "https://polling-app.xyz"
+  }
+
+
+
+
+
+
+
       ]
+secrets = [
+  {
+    name      = "SPRING_DATASOURCE_PASSWORD"
+    valueFrom = "${var.db_secret_arn}:password::"
+  }
+]
       logConfiguration = {
         logDriver = "awslogs"
         options = {

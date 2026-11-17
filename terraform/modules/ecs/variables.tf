@@ -18,12 +18,6 @@ variable "db_username" {
   description = "Database username"
 }
 
-variable "db_password" {
-  type        = string
-  description = "Database password"
-  sensitive   = true
-}
-
 variable "private_subnets" {
   type        = list(string)
   description = "Private subnet IDs for ECS tasks"
@@ -47,4 +41,10 @@ variable "frontend_tg_arn" {
 variable "cloudwatch_log_group_name" {
   type        = string
   description = "cloudwatch log group name for the task definition"
+}
+
+
+variable "db_secret_arn" {
+  type        = string
+  description = "Target group ARN for frontend service"
 }

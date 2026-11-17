@@ -5,6 +5,12 @@ resource "aws_lb" "polling_alb" {
   security_groups    = [var.alb_sg_id]
   subnets            = var.public_subnets
 
+  access_logs {
+    bucket  = var.log_bucket_name 
+    prefix  = "alb"
+    enabled = true
+  }
+
   tags = { Name = "polling-prod-alb" }
 }
 
