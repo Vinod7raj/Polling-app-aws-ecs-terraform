@@ -33,8 +33,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                // manual gate before touching real infra - remove input{} once you trust the pipeline
-                input message: 'Apply Terraform changes to AWS?'
+                
                 dir('terraform') {
                     sh 'terraform apply -var-file=${TF_VAR_FILE} -input=false tfplan'
                 }
