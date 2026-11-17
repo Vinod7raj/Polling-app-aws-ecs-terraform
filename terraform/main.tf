@@ -24,7 +24,7 @@ module "security_groups" {
 
 module "alb" {
   source              = "./modules/load_balancer"
-  log_bucket_name       = module.s3.bucket_id
+  log_bucket_name     = module.s3.bucket_id
   depends_on          = [module.s3]
   vpc_id              = module.vpc.vpc_id
   public_subnets      = module.vpc.public_subnets
@@ -40,7 +40,7 @@ module "rds" {
 }
 
 module "s3" {
-  source          = "./modules/s3_bucket"
+  source = "./modules/s3_bucket"
 }
 
 

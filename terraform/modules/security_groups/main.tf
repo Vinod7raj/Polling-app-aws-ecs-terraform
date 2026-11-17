@@ -12,7 +12,7 @@ resource "aws_security_group" "alb_sg" {
   }
 
 
-ingress {
+  ingress {
     description = "HTTPS"
     from_port   = 443
     to_port     = 443

@@ -63,10 +63,10 @@ resource "aws_ecs_task_definition" "backend_task" {
           value = var.db_username
         },
 
-  {
-    name  = "APP_CORS_ALLOWEDORIGINS"
-    value = "https://polling-app.xyz"
-  }
+        {
+          name  = "APP_CORS_ALLOWEDORIGINS"
+          value = "https://polling-app.xyz"
+        }
 
 
 
@@ -75,12 +75,12 @@ resource "aws_ecs_task_definition" "backend_task" {
 
 
       ]
-secrets = [
-  {
-    name      = "SPRING_DATASOURCE_PASSWORD"
-    valueFrom = "${var.db_secret_arn}:password::"
-  }
-]
+      secrets = [
+        {
+          name      = "SPRING_DATASOURCE_PASSWORD"
+          valueFrom = "${var.db_secret_arn}:password::"
+        }
+      ]
       logConfiguration = {
         logDriver = "awslogs"
         options = {

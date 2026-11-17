@@ -1,5 +1,5 @@
 data "aws_caller_identity" "current" {}
-data "aws_elb_service_account" "main" {}   # the right ELB log-writer account for this region
+data "aws_elb_service_account" "main" {} # the right ELB log-writer account for this region
 
 resource "aws_s3_bucket" "alb_logs" {
   bucket = "access-log-polling710321"

@@ -6,7 +6,7 @@ resource "aws_lb" "polling_alb" {
   subnets            = var.public_subnets
 
   access_logs {
-    bucket  = var.log_bucket_name 
+    bucket  = var.log_bucket_name
     prefix  = "alb"
     enabled = true
   }

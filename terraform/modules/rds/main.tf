@@ -15,11 +15,11 @@ resource "aws_db_instance" "mysql" {
   engine_version        = "8.0"
   instance_class        = "db.t3.micro"
 
-  db_name  = "polls"
-  username = var.db_username
+  db_name                     = "polls"
+  username                    = var.db_username
   manage_master_user_password = true
-  db_subnet_group_name   = aws_db_subnet_group.db_subnet_grp.name
-  vpc_security_group_ids = [var.db_sg_id]
+  db_subnet_group_name        = aws_db_subnet_group.db_subnet_grp.name
+  vpc_security_group_ids      = [var.db_sg_id]
 
 
   multi_az            = false
