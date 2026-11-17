@@ -65,22 +65,22 @@ pipeline {
             }
         }
 
-        stage('Deploy Backend to ECS') {
-            steps {
-                sh """
-                    aws ecs update-service \
-                        --cluster ${ECS_CLUSTER} \
-                        --service backend-service \
-                        --force-new-deployment \
-                        --region ${AWS_REGION}
+        // stage('Deploy Backend to ECS') {
+        //     steps {
+        //         sh """
+        //             aws ecs update-service \
+        //                 --cluster ${ECS_CLUSTER} \
+        //                 --service backend-service \
+        //                 --force-new-deployment \
+        //                 --region ${AWS_REGION}
 
-                    aws ecs wait services-stable \
-                        --cluster ${ECS_CLUSTER} \
-                        --services backend-service \
-                        --region ${AWS_REGION}
-                """
-            }
-        }
+        //             aws ecs wait services-stable \
+        //                 --cluster ${ECS_CLUSTER} \
+        //                 --services backend-service \
+        //                 --region ${AWS_REGION}
+        //         """
+        //     }
+        // }
 
         // ---------- APP: FRONTEND ----------
 
@@ -112,27 +112,27 @@ pipeline {
             }
         }
 
-        stage('Deploy Frontend to ECS') {
-            steps {
-                sh """
-                    aws ecs update-service \
-                        --cluster ${ECS_CLUSTER} \
-                        --service frontend-service \
-                        --force-new-deployment \
-                        --region ${AWS_REGION}
+        // stage('Deploy Frontend to ECS') {
+        //     steps {
+        //         sh """
+        //             aws ecs update-service \
+        //                 --cluster ${ECS_CLUSTER} \
+        //                 --service frontend-service \
+        //                 --force-new-deployment \
+        //                 --region ${AWS_REGION}
 
-                    aws ecs wait services-stable \
-                        --cluster ${ECS_CLUSTER} \
-                        --services frontend-service \
-                        --region ${AWS_REGION}
-                """
-            }
-        }
+        //             aws ecs wait services-stable \
+        //                 --cluster ${ECS_CLUSTER} \
+        //                 --services frontend-service \
+        //                 --region ${AWS_REGION}
+        //         """
+        //     }
+        // }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully.'
+            echo 'Docker images built and pushed successfully.'
         }
 
         failure {
