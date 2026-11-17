@@ -8,7 +8,7 @@ pipeline {
         BACKEND_ECR_REPO  = 'polling-app-server'
         FRONTEND_ECR_REPO = 'polling-app-client'
         IMAGE_TAG       = "${env.BUILD_NUMBER}"
-        REACT_APP_API_BASE_URL = 'http://polling-app.xyz/api'
+        REACT_APP_API_BASE_URL = 'https://polling-app.xyz/api'
     }
 
     stages {
