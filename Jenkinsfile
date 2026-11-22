@@ -18,7 +18,6 @@ pipeline {
             }
         }
 
-         ---------- INFRA ----------
 
         stage('Terraform Init & Plan') {
            steps {
@@ -37,7 +36,6 @@ pipeline {
              }
          }
 
-         ---------- APP: BACKEND ----------
 
         stage('Build & Push Backend Image') {
             steps {
