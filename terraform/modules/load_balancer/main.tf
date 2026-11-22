@@ -22,12 +22,14 @@ resource "aws_lb_target_group" "frontend_tg" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
+deregistration_delay = 30
+
   health_check {
     path                = "/"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
+    healthy_threshold   = 1 
+    unhealthy_threshold = 2
     timeout             = 5
-    interval            = 30
+    interval            = 20
     matcher             = "200"
   }
 }
@@ -40,12 +42,14 @@ resource "aws_lb_target_group" "backend_tg" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
-  health_check {
+deregistration_delay = 30
+
+health_check {
     path                = "/api/polls"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
+    healthy_threshold   = 1
+    unhealthy_threshold = 2
     timeout             = 5
-    interval            = 30
+    interval            = 20
     matcher             = "200"
   }
 }
