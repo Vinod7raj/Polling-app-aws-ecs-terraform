@@ -26,7 +26,7 @@ deregistration_delay = 30
 
   health_check {
     path                = "/"
-    healthy_threshold   = 1 
+    healthy_threshold   = 2 
     unhealthy_threshold = 2
     timeout             = 5
     interval            = 20
@@ -46,7 +46,7 @@ deregistration_delay = 30
 
 health_check {
     path                = "/api/polls"
-    healthy_threshold   = 1
+    healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 5
     interval            = 20
