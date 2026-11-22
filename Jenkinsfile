@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -19,26 +18,26 @@ pipeline {
             }
         }
 
-        // ---------- INFRA ----------
+         ---------- INFRA ----------
 
-        // stage('Terraform Init & Plan') {
-        //     steps {
-        //         dir('terraform') {
-        //             sh 'terraform init -migrate-state -input=false'
-        //             sh 'terraform plan -var-file=${TF_VAR_FILE} -out=tfplan'
-        //         }
-        //     }
-        // }
+        stage('Terraform Init & Plan') {
+           steps {
+                dir('terraform') {
+                   sh 'terraform init -migrate-state -input=false'
+                    sh 'terraform plan -var-file=${TF_VAR_FILE} -out=tfplan'
+                }
+             }
+         }
 
-        // stage('Terraform Apply') {
-        //     steps {
-        //         dir('terraform') {
-        //             sh 'terraform apply -var-file=${TF_VAR_FILE} -input=false tfplan'
-        //         }
-        //     }
-        // }
+         stage('Terraform Apply') {
+             steps {
+                 dir('terraform') {
+                     sh 'terraform apply -var-file=${TF_VAR_FILE} -input=false tfplan'
+                 }
+             }
+         }
 
-        // ---------- APP: BACKEND ----------
+         ---------- APP: BACKEND ----------
 
         stage('Build & Push Backend Image') {
             steps {
