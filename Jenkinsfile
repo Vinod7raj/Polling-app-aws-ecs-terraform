@@ -70,13 +70,13 @@ pipeline {
                 sh """
                     aws ecs update-service \
                         --cluster ${ECS_CLUSTER} \
-                        --service backend-service \
+                        --service polling-backend-service \
                         --force-new-deployment \
                         --region ${AWS_REGION}
 
                     aws ecs wait services-stable \
                         --cluster ${ECS_CLUSTER} \
-                        --services backend-service \
+                        --services polling-backend-service \
                         --region ${AWS_REGION}
                 """
             }
@@ -117,13 +117,13 @@ pipeline {
                 sh """
                     aws ecs update-service \
                         --cluster ${ECS_CLUSTER} \
-                        --service frontend-service \
+                        --service polling-frontend-service \
                         --force-new-deployment \
                         --region ${AWS_REGION}
 
                     aws ecs wait services-stable \
                         --cluster ${ECS_CLUSTER} \
-                        --services frontend-service \
+                        --services polling-frontend-service \
                         --region ${AWS_REGION}
                 """
             }
@@ -140,4 +140,3 @@ pipeline {
         }
     }
 }
-
