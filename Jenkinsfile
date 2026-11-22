@@ -8,6 +8,7 @@ pipeline {
         FRONTEND_ECR_REPO = 'polling-app-client'
         IMAGE_TAG       = "${env.BUILD_NUMBER}"
         REACT_APP_API_BASE_URL = 'https://polling-app.xyz/api'
+		TFVAR_FILE = credentials('TF_VAR_FILE')
     }
 
     stages {
@@ -18,12 +19,13 @@ pipeline {
             }
         }
 
+        
 
         stage('Terraform Init & Plan') {
            steps {
                 dir('terraform') {
                    sh 'terraform init -migrate-state -input=false'
-                    sh 'terraform plan -var-file=${TF_VAR_FILE} -out=tfplan'
+                    sh 'terraform plan -var-file=$TFVAR_FILE -out=tfplan'
                 }
              }
          }
@@ -31,11 +33,12 @@ pipeline {
          stage('Terraform Apply') {
              steps {
                  dir('terraform') {
-                     sh 'terraform apply -var-file=${TF_VAR_FILE} -input=false tfplan'
+                     sh 'terraform apply  -input=false tfplan'
                  }
              }
          }
 
+         
 
         stage('Build & Push Backend Image') {
             steps {
